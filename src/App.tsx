@@ -2,6 +2,8 @@ import './App.css'
 import { GraphicShortTerm } from './ChartJs/GraphicShortTerm'
 import { GraphicSimple } from './ChartJs/GraphicSimple'
 import { GraphicSimpleWLine } from './ChartJs/GraphicSimpleWLine'
+import MUIChartsOverviewDemo from './MaterialUI/MUIGraphicShortTerm'
+import RechartsGraphicSimple from './Recharts/RechartsGraphicSimple'
 
 function App() {
 
@@ -56,6 +58,11 @@ function App() {
           >
             <GraphicSimpleWLine />
           </div>
+        </div>
+
+        <div style={{ width: "600px" }}>
+          {/* <MUIChartsOverviewDemo /> */}
+          {/* <RechartsGraphicSimple /> */}
         </div>
 
       </div>

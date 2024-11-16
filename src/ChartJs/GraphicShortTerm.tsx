@@ -75,19 +75,7 @@ export const GraphicShortTerm = ({ obj: { min, max, values } }: Props) => {
         },
       },
       tooltip: {
-        callbacks: {
-          position: "bottom",
-          beforeBody: function (tooltipItems) {
-            let total = tooltipItems.reduce((sum, item) => sum + item.raw, 0);
-            return <h1>asdasdada</h1>;
-          },
-          label: function (tooltipItem) {
-            const labels = ['Volume isolado', 'Volume base', 'Volume extra'];
-            const units = 'MWh';
-            const value = tooltipItem.raw;
-            return <h1>asd</h1>;
-          },
-        },
+
       },
     },
     scales: {

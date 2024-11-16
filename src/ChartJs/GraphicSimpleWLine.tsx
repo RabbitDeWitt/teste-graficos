@@ -70,6 +70,7 @@ export const GraphicSimpleWLine = ({ }: Props) => {
       tooltip: {
         position: 'average',
         backgroundColor: "white",
+        usePointStyle: false,
         bodyColor: 'black',
         displayColors: false, // Remove as cores padrão ao lado dos valores
         padding: 10, // Adiciona um espaçamento para o conteúdo do tooltip
