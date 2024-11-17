@@ -10,9 +10,9 @@ import {
   ChartData,
   ChartOptions,
 } from "chart.js";
-import { useRef, useState } from "react";
+import { memo, useState } from "react";
 import { Chart } from "react-chartjs-2";
-import { CustomTooltip } from "./CustomTooltip";
+import { getDesaturatedColor } from "../utils/changeColors";
 
 ChartJS.register(
   CategoryScale,
@@ -24,13 +24,9 @@ ChartJS.register(
   Legend
 );
 
-interface Props {
 
-}
-
-export const GraphicSimple = ({ }: Props) => {
-  const [tooltipData, setTooltipData] = useState<any>(null);
-  const chartRef = useRef<any>(null);
+const GraphicSimple = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const barraA = Array(12).fill(17)
   const barraB = [8, 15, 25, 30, 18, 15, 10, 27, 35, 19, 13, 12]
 
@@ -41,8 +37,7 @@ export const GraphicSimple = ({ }: Props) => {
         type: "bar" as const,
         label: "Bar Dataset",
         data: barraA,
-        backgroundColor: "#ccedfd",
-        hoverBackgroundColor: "#ccedfd",
+        backgroundColor: ({ dataIndex }: { dataIndex: number }) => hoveredIndex === null || hoveredIndex === dataIndex ? "#ccedfd" : getDesaturatedColor("#ccedfd"),
         barPercentage: 1,
         barThickness: 22,
         categoryPercentage: 1
@@ -51,8 +46,7 @@ export const GraphicSimple = ({ }: Props) => {
         type: "bar" as const,
         label: "Bar Dataset",
         data: barraB,
-        backgroundColor: "#37a9fb",
-        hoverBackgroundColor: "#37a9fb",
+        backgroundColor: ({ dataIndex }: { dataIndex: number }) => hoveredIndex === null || hoveredIndex === dataIndex ? "#37a9fb" : getDesaturatedColor("#37a9fb"),
         barPercentage: 1,
         barThickness: 22,
         categoryPercentage: 1
@@ -62,6 +56,7 @@ export const GraphicSimple = ({ }: Props) => {
 
   const options: ChartOptions<"bar" | "line"> = {
     responsive: true,
+    animation: false,
     plugins: {
       legend: { display: false },
       tooltip: {
@@ -118,8 +113,14 @@ export const GraphicSimple = ({ }: Props) => {
           tooltipEl.style.left = position.left + tooltipModel.caretX + "px";
           tooltipEl.style.top = position.top + tooltipModel.caretY + "px";
           tooltipEl.style.transform = 'translateX(-50%)';
-        },
+        }
+
+        ,
       },
+    },
+    onHover: (_, chartElement) => {
+      const newIndex = chartElement.length ? chartElement[0].index : null;
+      newIndex !== hoveredIndex && setHoveredIndex(newIndex);
     },
     scales: {
       x: {
@@ -146,9 +147,13 @@ export const GraphicSimple = ({ }: Props) => {
     },
   };
   return (
-    <div style={{ width: "600px", height: "300px" }} >
-      <Chart type="bar" data={data} options={options} ref={chartRef} />
-      {tooltipData && <CustomTooltip tooltipModel={tooltipData} />}
+    <div
+      style={{ width: "600px", height: "300px" }}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <Chart type="bar" data={data} options={options} />
     </div >
   )
 }
+
+export default memo(GraphicSimple);

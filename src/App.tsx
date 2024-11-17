@@ -1,6 +1,7 @@
 import './App.css'
 import { GraphicShortTerm } from './ChartJs/GraphicShortTerm'
-import { GraphicSimple } from './ChartJs/GraphicSimple'
+import GraphicSimple from './ChartJs/GraphicSimple'
+// import { GraphicSimple } from './ChartJs/GraphicSimple'
 import { GraphicSimpleWLine } from './ChartJs/GraphicSimpleWLine'
 import MUIChartsOverviewDemo from './MaterialUI/MUIGraphicShortTerm'
 import RechartsGraphicSimple from './Recharts/RechartsGraphicSimple'
